@@ -7,7 +7,7 @@ namespace Rbi.Search
 {
     public interface IIdolAction<out TResultSet>
     {
-        string GetCommand();
+        string Command { get; }
         TResultSet Execute();
     }
 }

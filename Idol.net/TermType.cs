@@ -9,6 +9,9 @@
         Wild,
         NotMatch,
         NotEqual,
-        DistSpherical
+        DistSpherical,
+        MatchAll,
+        MatchCover,
+        Exists
     }
 }

@@ -14,11 +14,5 @@ namespace API_Test_App
         public static TextField Title = new TextField("DRETITLE");
         public static LocationField Location = new LocationField("LAT1", "LONG1");
         public static NumericField StatusId = new NumericField("STATUSID");
-
-
-        public static XElement ExecuteBasicQueryWithDateFilter(string text, DateTime date)
-        {
-            return null;
-        }
     }
 }

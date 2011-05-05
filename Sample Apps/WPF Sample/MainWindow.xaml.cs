@@ -41,15 +41,15 @@ namespace API_Test_App
             //query.Parametric.Where()
             //var parametric = idolServer.GetParametrics(RawResultSet.FormatResults);
             
-            query.Where("test");
+            query.Where(TextBoxQueryText.Text);
             query.Where(ExampleDocument.ArticleId.IsEqual(243990) & ExampleDocument.StatusId.IsEqual(30));
             //query.Select(CWArticle.ArticleId, CWArticle.StatusId);
 
             //Execute query
             var results = query.Execute();
-            textBlockResultXml.Text = query.GetCommand() + Environment.NewLine + results.Result;
+            textBlockResultXml.Text = query.Command + Environment.NewLine + results.Result;
 
-            Field field = idolServer["Title"];
+            /*Field field = idolServer["Title"];
             Field field2 = idolServer["number"];
 
 
@@ -67,7 +67,7 @@ namespace API_Test_App
             //textBlock1.Text = term.ToString() + Environment.NewLine + term2.ToString();
 
             //textBlock1.Text = term + Environment.NewLine + term2 + Environment.NewLine + term3;
-
+            */
             
 
 

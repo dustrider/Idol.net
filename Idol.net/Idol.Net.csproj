@@ -61,6 +61,7 @@
     <Compile Include="Configuration\LocationField.cs" />
     <Compile Include="Configuration\NumericField.cs" />
     <Compile Include="Configuration\TextField.cs" />
+    <Compile Include="EqualOnlyBehaviour.cs" />
     <Compile Include="Formatters\RawResultSet.cs" />
     <Compile Include="IConnection.cs" />
     <Compile Include="IdolConnection.cs" />

@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using Rbi.Search.Configuration;
 using System.Xml.Linq;
-using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Hosting;
-using System.Reflection;
 
 [assembly: CLSCompliant(true)]
 namespace Rbi.Search
@@ -57,24 +50,27 @@ namespace Rbi.Search
 
         public TResultSet Execute()
         {
-            return resultSetFactory(idolConnection.GetXElement(idolConnection.Configuration.IdolActionUri, GetCommand(), true));
+            return resultSetFactory(idolConnection.GetXElement(idolConnection.Configuration.IdolActionUri, Command, true));
         }
 
-        public string GetCommand()
+        public string Command
         {
-            slimLock.EnterReadLock();
-            try
+            get
             {
-                if (whereClause != null)
+                slimLock.EnterReadLock();
+                try
                 {
-                    return String.Format("a=query&text={0}&print=all&combine=simple&FieldText={1}", queryText,
-                                         whereClause);
+                    if (whereClause != null)
+                    {
+                        return String.Format("a=query&text={0}&print=all&combine=simple&FieldText={1}", queryText,
+                                             whereClause);
+                    }
+                    return String.Format("a=query&text={0}&combine=simple&print=all", queryText);
                 }
-                return String.Format("a=query&text={0}&combine=simple&print=all", queryText);
-            }
-            finally
-            {
-                slimLock.ExitReadLock();
+                finally
+                {
+                    slimLock.ExitReadLock();
+                }
             }
         }
 
