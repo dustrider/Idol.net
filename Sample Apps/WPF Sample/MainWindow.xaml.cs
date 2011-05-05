@@ -47,7 +47,7 @@ namespace API_Test_App
 
             //Execute query
             var results = query.Execute();
-            textBlock1.Text = query.GetCommand() + Environment.NewLine + results.Result;
+            textBlockResultXml.Text = query.GetCommand() + Environment.NewLine + results.Result;
 
             Field field = idolServer["Title"];
             Field field2 = idolServer["number"];
