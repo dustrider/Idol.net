@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using System.Xml.Linq;
 
@@ -13,12 +14,12 @@ namespace Rbi.Search
         private readonly IdolConnection<TResultSet> idolConnection;
         private readonly Func<XElement, TResultSet> resultSetFactory;
         private string queryText = "*";
-        private Term whereClause = null;
+        private Term whereClause;
         private ReaderWriterLockSlim slimLock = new ReaderWriterLockSlim();
 
         internal Query(Func<XElement, TResultSet> resultSetFactory, IdolConnection<TResultSet> idolServer)
         {
-            this.idolConnection = idolServer;
+            idolConnection = idolServer;
             this.resultSetFactory = resultSetFactory;
         }
 
@@ -52,6 +53,31 @@ namespace Rbi.Search
         {
             return resultSetFactory(idolConnection.GetXElement(idolConnection.Configuration.IdolActionUri, Command, true));
         }
+
+        public void ExecuteAsync()
+        {
+            var resultFunc = new Func<TResultSet>(Execute);
+            resultFunc.BeginInvoke(InvokeExecuteCompleted, null);
+        }
+
+        public void ExecuteAsync(object userState)
+        {
+            var resultFunc = new Func<TResultSet>(Execute);
+            resultFunc.BeginInvoke(InvokeExecuteCompleted, userState);
+        }
+
+        public delegate void ExecuteCompletedEventHandler(object sender, ExecuteCompletedEventArgs<TResultSet> e);
+        public event ExecuteCompletedEventHandler ExecuteCompleted;
+
+        private void InvokeExecuteCompleted(IAsyncResult result)
+        {
+            var asyncResult = (AsyncResult)result;
+            var del = (Func<TResultSet>) asyncResult.AsyncDelegate;
+            var results = del.EndInvoke(result);
+            var handler = ExecuteCompleted;
+            if (handler != null) handler(this, new ExecuteCompletedEventArgs<TResultSet>(results, null, false, asyncResult.AsyncState));
+        }
+
 
         public string Command
         {

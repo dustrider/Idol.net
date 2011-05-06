@@ -1,18 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 using Rbi.Search;
 using Rbi.Search.Configuration;
 using Rbi.Search.Formatters;
@@ -47,6 +34,9 @@ namespace API_Test_App
             var results = query.Execute();
             textBlockResultXml.Text = query.Command + Environment.NewLine + results.Result;
 
+            query.ExecuteCompleted += new Query<RawResultSet>.ExecuteCompletedEventHandler(query_ExecuteCompleted);
+            query.ExecuteAsync();
+
             /*Field field = idolServer["Title"];
             Field field2 = idolServer["number"];
 
@@ -65,6 +55,11 @@ namespace API_Test_App
             //textBlock1.Text = term + Environment.NewLine + term2 + Environment.NewLine + term3;
             */
             
+        }
+
+        void query_ExecuteCompleted(object sender, ExecuteCompletedEventArgs<RawResultSet> e)
+        {
+            string s = e.Result.Result.ToString();
         }
     }
 }

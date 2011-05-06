@@ -62,6 +62,7 @@
     <Compile Include="Configuration\NumericField.cs" />
     <Compile Include="Configuration\TextField.cs" />
     <Compile Include="EqualOnlyBehaviour.cs" />
+    <Compile Include="ExecuteCompletedEventArgs.cs" />
     <Compile Include="Formatters\RawResultSet.cs" />
     <Compile Include="IConnection.cs" />
     <Compile Include="IdolConnection.cs" />
