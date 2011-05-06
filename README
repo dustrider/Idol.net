@@ -1,4 +1,6 @@
 Idol.net v0.0.1
 .NET API for Autonomy IDOL Server (7+)
 
-Project start, not tested and barely works
+Project start, not tested and barely works.  In other words this is far from stable and is likely to change drastically as we try out the best abstraction and factories, and work out the kinks.
+
+To develop (until decent mocks are created at least) you will need access to your own IDOL Server licensed for whatever functionality you are building.

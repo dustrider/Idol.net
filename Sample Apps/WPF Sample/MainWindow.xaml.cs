@@ -38,12 +38,10 @@ namespace API_Test_App
          
             //Get a new query of the right return type
             var query = idolServer.GetQuery(RawResultSet.FormatResults);
-            //query.Parametric.Where()
-            //var parametric = idolServer.GetParametrics(RawResultSet.FormatResults);
             
             query.Where(TextBoxQueryText.Text);
             query.Where(ExampleDocument.ArticleId.IsEqual(243990) & ExampleDocument.StatusId.IsEqual(30));
-            //query.Select(CWArticle.ArticleId, CWArticle.StatusId);
+            //query.Where(ExampleDocument.Author.IsEqual("test"));
 
             //Execute query
             var results = query.Execute();
@@ -51,8 +49,6 @@ namespace API_Test_App
 
             /*Field field = idolServer["Title"];
             Field field2 = idolServer["number"];
-
-
 
             Term term = ExampleDocument.Location.IsInRadius(1.55d, 1.2d, 40d) |
                         ExampleDocument.Location.IsInRadius(10, 10, 50);
@@ -68,9 +64,6 @@ namespace API_Test_App
 
             //textBlock1.Text = term + Environment.NewLine + term2 + Environment.NewLine + term3;
             */
-            
-
-
             
         }
     }

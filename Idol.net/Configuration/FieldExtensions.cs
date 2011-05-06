@@ -13,7 +13,6 @@ namespace Rbi.Search.Configuration
         }
 
         #region Match Type Extensions <String>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
         public static Term IsEqual(this MatchField<string> field, string condition)
         {
             return new Term(field, condition) { TermType = IsWild(condition) ? TermType.Wild : TermType.Match };
@@ -64,7 +63,6 @@ namespace Rbi.Search.Configuration
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters")]
         public static Term IsEqualOnly(this MatchField<string> field, EqualOnlyBehaviour behaviour, params string[] conditions)
         {
-            //Since its not wild, use a MatchAll command
             if (behaviour == EqualOnlyBehaviour.SkipFieldCheck)
             {
                 return new Term(field, conditions) { TermType = TermType.MatchCover };
