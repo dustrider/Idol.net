@@ -1,0 +1,12 @@
+
+_ReSharper.*
+*/bin
+Sample Apps/*/bin
+*/obj
+Sample Apps/*/obj
+*.resharper.user
+*.suo
+*.bak
+*.sln.cache
+*.user
+*.vspscc
