@@ -9,14 +9,14 @@ namespace API_Test_App
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void Button1Click(object sender, RoutedEventArgs e)
         {
             //Get a singleton Idol Server for the target URI
             var idolServer = IdolServer.GetInstance<RawResultSet>(new Uri("http://10.55.109.89:8210"),
@@ -34,7 +34,7 @@ namespace API_Test_App
             var results = query.Execute();
             textBlockResultXml.Text = query.Command + Environment.NewLine + results.Result;
 
-            query.ExecuteCompleted += new Query<RawResultSet>.ExecuteCompletedEventHandler(query_ExecuteCompleted);
+            query.ExecuteCompleted += QueryExecuteCompleted;
             query.ExecuteAsync();
 
             /*Field field = idolServer["Title"];
@@ -57,9 +57,9 @@ namespace API_Test_App
             
         }
 
-        void query_ExecuteCompleted(object sender, ExecuteCompletedEventArgs<RawResultSet> e)
+        void QueryExecuteCompleted(object sender, ExecuteCompletedEventArgs<RawResultSet> e)
         {
-            string s = e.Result.Result.ToString();
+            textBlockResultXml.Text = e.Result.Result.ToString();
         }
     }
 }
