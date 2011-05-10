@@ -28,6 +28,9 @@ namespace API_Test_App
             
             query.Where(TextBoxQueryText.Text);
             query.Where(ExampleDocument.ArticleId.IsEqual(243990) & ExampleDocument.StatusId.IsEqual(30));
+            query.OrderBy(Sort.ByRelevance.And(Sort.ByFieldIncreasing(ExampleDocument.ArticleId))); //Long hand for field sorts
+            query.OrderBy(ExampleDocument.ArticleId.SortIncreasing()); //Short for field sorts
+
             //query.Where(ExampleDocument.Author.IsEqual("test"));
 
             //Execute query

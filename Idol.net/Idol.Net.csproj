@@ -70,6 +70,9 @@
     <Compile Include="IdolServer.cs" />
     <Compile Include="Configuration\MatchField.cs" />
     <Compile Include="OperatorType.cs" />
+    <Compile Include="Sort.cs" />
+    <Compile Include="SortMethod.cs" />
+    <Compile Include="SortOrder.cs" />
     <Compile Include="Term.cs" />
     <Compile Include="Query.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

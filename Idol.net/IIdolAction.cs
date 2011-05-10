@@ -6,5 +6,6 @@
         TResultSet Execute();
         void ExecuteAsync();
         void ExecuteAsync(object userState);
+        void CancelAysnc(object userState);
     }
 }
