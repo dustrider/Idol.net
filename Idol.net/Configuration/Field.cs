@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Rbi.Search.Configuration
+﻿namespace Rbi.Search.Configuration
 {
     public class Field
     {

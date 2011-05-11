@@ -12,6 +12,17 @@ namespace Rbi.Search.Configuration
             return Regex.Match(condition, @"^.*[\*\?].*$").Success;
         }
 
+        #region General Field Extensions
+        public static Sort SortDecreasing(this Field field)
+        {
+            return Sort.ByFieldDecreasing(field);
+        }
+        public static Sort SortIncreasing(this Field field)
+        {
+            return Sort.ByFieldIncreasing(field);
+        }
+        #endregion
+
         #region Match Type Extensions <String>
         public static Term IsEqual(this MatchField<string> field, string condition)
         {

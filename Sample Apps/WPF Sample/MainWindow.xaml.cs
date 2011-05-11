@@ -1,18 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
 using Rbi.Search;
 using Rbi.Search.Configuration;
 using Rbi.Search.Formatters;
@@ -22,14 +9,14 @@ namespace API_Test_App
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private void Button1Click(object sender, RoutedEventArgs e)
         {
             //Get a singleton Idol Server for the target URI
             var idolServer = IdolServer.GetInstance<RawResultSet>(new Uri("http://10.55.109.89:8210"),
@@ -41,11 +28,17 @@ namespace API_Test_App
             
             query.Where(TextBoxQueryText.Text);
             query.Where(ExampleDocument.ArticleId.IsEqual(243990) & ExampleDocument.StatusId.IsEqual(30));
+            query.OrderBy(Sort.ByRelevance.And(Sort.ByFieldIncreasing(ExampleDocument.ArticleId))); //Long hand for field sorts
+            query.OrderBy(ExampleDocument.ArticleId.SortIncreasing()); //Short for field sorts
+
             //query.Where(ExampleDocument.Author.IsEqual("test"));
 
             //Execute query
             var results = query.Execute();
             textBlockResultXml.Text = query.Command + Environment.NewLine + results.Result;
+
+            query.ExecuteCompleted += QueryExecuteCompleted;
+            query.ExecuteAsync();
 
             /*Field field = idolServer["Title"];
             Field field2 = idolServer["number"];
@@ -65,6 +58,11 @@ namespace API_Test_App
             //textBlock1.Text = term + Environment.NewLine + term2 + Environment.NewLine + term3;
             */
             
+        }
+
+        void QueryExecuteCompleted(object sender, ExecuteCompletedEventArgs<RawResultSet> e)
+        {
+            textBlockResultXml.Text = e.Result.Result.ToString();
         }
     }
 }
